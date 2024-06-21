@@ -31,7 +31,9 @@ const Tasks = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //the params that we are getting from the url
   const status = params?.status || "";
+
 
   return loading ? (
     <div className='py-10'>
@@ -53,6 +55,7 @@ const Tasks = () => {
       </div>
 
       <Tabs tabs={TABS} setSelected={setSelected}>
+        {/*we are rendering the todo items progress icons */}
         {!status && (
           <div className='w-full flex justify-between gap-4 md:gap-x-12 py-4'>
             <TaskTitle label='To Do' className={TASK_TYPE.todo} />
@@ -63,7 +66,7 @@ const Tasks = () => {
             <TaskTitle label='completed' className={TASK_TYPE.completed} />
           </div>
         )}
-
+        {/** if it is selected */}
         {selected !== 1 ? (
           <BoardView tasks={tasks} />
         ) : (

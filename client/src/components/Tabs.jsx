@@ -1,5 +1,5 @@
 import { Tab } from "@headlessui/react";
-
+// this is for the board view nd the list view
 //from headless UI to combine multiple classes
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -7,8 +7,8 @@ function classNames(...classes) {
 
 export default function Tabs({ tabs, setSelected, children }) {
   return (
-    <div className='w-full px-1 sm:px-0'>
-      <Tab.Group>
+    <div className='w-full px-1 sm:px-0'> 
+      <Tab.Group> 
         <Tab.List className='flex space-x-6 rounded-xl p-1'>
           {tabs.map((tab, index) => (
             <Tab
