@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+//Cross-Origin Resource Sharing
+//is a security feature implemented in web browsers that allows or restricts web applications running at one origin (domain) from interacting with resources from a different origin.
 app.use(
   cors({
     origin: ["http://localhost:3000", "http://localhost:3001"],
