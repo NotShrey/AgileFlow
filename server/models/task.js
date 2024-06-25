@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { getPriority, type } from "os";
 
 const taskSchema = new Schema(
   {
@@ -34,7 +35,7 @@ const taskSchema = new Schema(
       },
     ],
 
-    subTasks: [
+        subTasks: [
       {
         title: String,
         date: Date,
