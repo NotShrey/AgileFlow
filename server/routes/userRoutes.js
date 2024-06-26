@@ -31,6 +31,9 @@ router.put("/read-noti", protectRoute, markNotificationRead);
 router.put("/change-password", protectRoute, changeUserPassword);
 
 // //   FOR ADMIN ONLY - ADMIN ROUTES
+
+///****important******/
+//PUT is used to update existing resources 
 router
   .route("/:id")
   .put(protectRoute, isAdminRoute, activateUserProfile)

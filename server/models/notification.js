@@ -6,6 +6,7 @@ const noticeSchema = new Schema(
     text: { type: String },
     task: { type: Schema.Types.ObjectId, ref: "Task" },
     notiType: { type: String, default: "alert", enum: ["alert", "message"] },
+    //********important******** */
     isRead: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
   { timestamps: true }

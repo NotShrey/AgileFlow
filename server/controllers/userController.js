@@ -1,14 +1,23 @@
+// controllers are used here to getalluser and createUser
+// controller is a set of functions or methods that handle incoming requests and return responses to the client. 
+
+//req.params is an object containing properties mapped to the named route parameters 
+// eg -> www.google.com/:123    id -> 123 will be in params to access it we write req.params.id
+
 import { response } from "express";
 import User from "../models/user.js";
 import { createJWT } from "../utils/index.js";
 import Notice from "../models/notification.js";
 
+// for a new user
 export const registerUser = async (req, res) => {
   try {
+    //extracting our data
     const { name, email, password, isAdmin, role, title } = req.body;
 
     const userExist = await User.findOne({ email });
 
+    // if the user already exits
     if (userExist) {
       return res.status(400).json({
         status: false,
@@ -25,6 +34,8 @@ export const registerUser = async (req, res) => {
       title,
     });
 
+// if the user is the admin then only create the jwt else not
+// only the admin can create the account for the user
     if (user) {
       isAdmin ? createJWT(res, user._id) : null;
 
@@ -61,6 +72,7 @@ export const loginUser = async (req, res) => {
       });
     }
 
+// with the help of bcrypt we are checking the password (function is written in user.js)
     const isMatch = await user.matchPassword(password);
 
     if (user && isMatch) {
@@ -126,6 +138,7 @@ export const updateUserProfile = async (req, res) => {
     const { userId, isAdmin } = req.user;
     const { _id } = req.body;
 
+// so here the admin can update his profile and other users profile but the user can only update its profile
     const id =
       isAdmin && userId === _id
         ? userId
@@ -171,6 +184,8 @@ export const markNotificationRead = async (req, res) => {
         { new: true }
       );
     } else {
+
+      //*****important*****/
       await Notice.findOneAndUpdate(
         { _id: id, isRead: { $nin: [userId] } },
         { $push: { isRead: userId } },
@@ -237,6 +252,8 @@ export const activateUserProfile = async (req, res) => {
   }
 };
 
+
+//           findByIdAndDelete *******important******
 export const deleteUserProfile = async (req, res) => {
   try {
     const { id } = req.params;
@@ -251,3 +268,5 @@ export const deleteUserProfile = async (req, res) => {
     return res.status(400).json({ status: false, message: error.message });
   }
 };
+
+
