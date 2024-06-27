@@ -1,3 +1,5 @@
+// req.params contains route parameters (in the path portion of the URL), and req.query contains the URL query parameters (after the ? in the URL).
+
 import Notice from "../models/notification.js";
 import Task from "../models/task.js";
 import User from "../models/user.js";
@@ -13,6 +15,7 @@ export const createTask = async (req, res) => {
       text = text + ` and ${team?.length - 1} others.`;
     }
 
+    // to add extra test
     text =
       text +
       ` The task priority is set a ${priority} priority, so check and act accordingly. The task date is ${new Date(
@@ -25,6 +28,7 @@ export const createTask = async (req, res) => {
       by: userId,
     };
 
+    //creating a task
     const task = await Task.create({
       title,
       team,
@@ -35,6 +39,7 @@ export const createTask = async (req, res) => {
       activities: activity,
     });
 
+    //new notice
     await Notice.create({
       team,
       text,
@@ -104,7 +109,7 @@ export const postTaskActivity = async (req, res) => {
 
     const task = await Task.findById(id);
 
-    const data = {
+    const data = {  
       type,
       activity,
       by: userId,
@@ -127,6 +132,7 @@ export const dashboardStatistics = async (req, res) => {
   try {
     const { userId, isAdmin } = req.user;
 
+    // ********admin use only*******
     const allTasks = isAdmin
       ? await Task.find({
           isTrashed: false,
@@ -135,7 +141,10 @@ export const dashboardStatistics = async (req, res) => {
             path: "team",
             select: "name role title email",
           })
+          // doing -1 will show us the updated one
           .sort({ _id: -1 })
+
+          //if u are a regualr user
       : await Task.find({
           isTrashed: false,
           team: { $all: [userId] },
@@ -167,7 +176,7 @@ export const dashboardStatistics = async (req, res) => {
     // Group tasks by priority
     const groupData = Object.entries(
       allTasks.reduce((result, task) => {
-        const { priority } = task;
+        const { priority } = task; 
 
         result[priority] = (result[priority] || 0) + 1;
         return result;
@@ -178,6 +187,7 @@ export const dashboardStatistics = async (req, res) => {
     const totalTasks = allTasks?.length;
     const last10Task = allTasks?.slice(0, 10);
 
+    // if it is an admin it will be shown all users summary else if it is a normal user then just its tasks summary
     const summary = {
       totalTasks,
       last10Task,
@@ -253,7 +263,7 @@ export const getTask = async (req, res) => {
 export const createSubTask = async (req, res) => {
   try {
     const { title, tag, date } = req.body;
-
+ 
     const { id } = req.params;
 
     const newSubTask = {
@@ -322,6 +332,7 @@ export const trashTask = async (req, res) => {
   }
 };
 
+//2:24:00 
 export const deleteRestoreTask = async (req, res) => {
   try {
     const { id } = req.params;

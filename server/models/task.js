@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { getPriority, type } from "os";
 
 const taskSchema = new Schema(
   {
