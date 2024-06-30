@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalWrapper from "./ModalWrapper";
 import { Dialog } from "@headlessui/react";
 import Textbox from "./Textbox";
@@ -20,15 +20,24 @@ const AddUser = ({ open, setOpen, userData }) => {
     formState: { errors },
   } = useForm({ defaultValues });
 
+  const dispatch = useDispatch();
+
 const [addNewUser,{isLoading}] = useRegisterMutation()
 const [updateUser, {isLoading: isUpdating}] = useUpdateUserMutation();
 
   const handleOnSubmit =async () => {
     try {
       if (userData) {
-        
+        const result = await updateUser(data).unwrap();
+
+        toast.success(result?.message);
+
+        if(userData?._id == user>_id){
+          dispatch(setCredentials({...result.user}))
+        }
+
       }else{
-        const reuslt = await addNewUser({...data,password: data.email}).unwrap();
+        const result = await addNewUser({...data,password: data.email}).unwrap();
 
         toast.success("New User added")
       }

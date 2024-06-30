@@ -4,7 +4,6 @@
 //req.params is an object containing properties mapped to the named route parameters 
 // eg -> www.google.com/:123    id -> 123 will be in params to access it we write req.params.id
 
-import { response } from "express";
 import User from "../models/user.js";
 import { createJWT } from "../utils/index.js";
 import Notice from "../models/notification.js";
@@ -17,7 +16,7 @@ export const registerUser = async (req, res) => {
 
     const userExist = await User.findOne({ email });
 
-    // if the user already exits
+    // if the user already exitsa
     if (userExist) {
       return res.status(400).json({
         status: false,
@@ -25,7 +24,7 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    const user = await User.create({
+    const user = await user.create({
       name,
       email,
       password,
