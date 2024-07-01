@@ -12,6 +12,7 @@ import BoardView from "../components/BoardView";
 import { tasks } from "../assets/data";
 import Table from "../components/task/Table";
 import AddTask from "../components/task/AddTask";
+import { useGetA11TaskQuery } from "../redux/slices/api/taskApiSlices";
 
 const TABS = [
   { title: "Board View", icon: <MdGridView /> },
@@ -34,22 +35,27 @@ const Tasks = () => {
   //the params that we are getting from the url
   const status = params?.status || "";
 
+  const { data, isLoading } = useGetA11TaskQuery({
+    strQuery: status,
+    isTrashed: "",
+    search: "",
+  });
 
   return loading ? (
-    <div className='py-10'>
+    <div className="py-10">
       <Loading />
     </div>
   ) : (
-    <div className='w-full'>
-      <div className='flex items-center justify-between mb-4'>
+    <div className="w-full">
+      <div className="flex items-center justify-between mb-4">
         <Title title={status ? `${status} Tasks` : "Tasks"} />
 
         {!status && (
           <Button
             onClick={() => setOpen(true)}
-            label='Create Task'
-            icon={<IoMdAdd className='text-lg' />}
-            className='flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5'
+            label="Create Task"
+            icon={<IoMdAdd className="text-lg" />}
+            className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
           />
         )}
       </div>
@@ -57,21 +63,21 @@ const Tasks = () => {
       <Tabs tabs={TABS} setSelected={setSelected}>
         {/*we are rendering the todo items progress icons */}
         {!status && (
-          <div className='w-full flex justify-between gap-4 md:gap-x-12 py-4'>
-            <TaskTitle label='To Do' className={TASK_TYPE.todo} />
+          <div className="w-full flex justify-between gap-4 md:gap-x-12 py-4">
+            <TaskTitle label="To Do" className={TASK_TYPE.todo} />
             <TaskTitle
-              label='In Progress'
+              label="In Progress"
               className={TASK_TYPE["in progress"]}
             />
-            <TaskTitle label='completed' className={TASK_TYPE.completed} />
+            <TaskTitle label="completed" className={TASK_TYPE.completed} />
           </div>
         )}
         {/** if it is selected */}
         {selected !== 1 ? (
-          <BoardView tasks={tasks} />
+          <BoardView tasks={data?.tasks} />
         ) : (
-          <div className='w-full'>
-            <Table tasks={tasks} />
+          <div className="w-full">
+            <Table tasks={data?.tasks} />
           </div>
         )}
       </Tabs>
