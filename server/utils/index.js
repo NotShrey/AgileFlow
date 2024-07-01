@@ -1,3 +1,11 @@
+//Generate a token then set that token as cookie
+
+// A cookie is a small piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. Cookies are designed to be a reliable mechanism for websites to remember stateful information or to record the user's browsing activity.
+
+
+//A token is a piece of data, often a string, that is used to authenticate and authorize users.
+
+
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
@@ -27,9 +35,3 @@ export const createJWT = (res, userId) => {
   });
 };
 
-//Generate a token then set that token as cookie
-
-// A cookie is a small piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. Cookies are designed to be a reliable mechanism for websites to remember stateful information or to record the user's browsing activity.
-
-
-//A token is a piece of data, often a string, that is used to authenticate and authorize users.
