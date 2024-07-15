@@ -97,6 +97,11 @@ The Cloud-Based Task Manager is an innovative solution that brings efficiency an
 
 ![Screenshot 2024-07-15 231318](https://github.com/user-attachments/assets/f5fdb4fe-ae6d-4dab-b93f-af185eb8ba4c)
 
+![Screenshot 2024-06-27 234617](https://github.com/user-attachments/assets/62fd6136-a55e-4f7f-b64d-ff1d47474e76)
+
+![Screenshot 2024-06-27 235019](https://github.com/user-attachments/assets/a0ae947a-386b-4221-b699-6c3555231a82)
+
+
 
 ## SETUP INSTRUCTIONS
 
