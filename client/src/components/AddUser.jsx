@@ -50,6 +50,19 @@ const [updateUser, {isLoading: isUpdating}] = useUpdateUserMutation();
     }
   };
 
+//handleOnSubmit: An async function that handles form submission.
+// If userData exists, it means we are updating an existing user.
+// updateUser(data): Triggers the update user mutation with the form data.
+// unwrap(): Extracts the response or throws an error.
+// toast.success(result?.message): Displays a success message.
+// If the updated user is the current user, update the credentials in the Redux state.
+// If userData does not exist, it means we are adding a new user.
+// addNewUser({ ...data, password: data.email }): Triggers the register mutation with the form data and sets the password to the email.
+// toast.success("New User added"): Displays a success message.
+// setTimeout(() => { setOpen(false); }, 1500): Closes the modal after 1.5 seconds.
+// toast.error("Something went wrong"): Displays an error message if the request fails.
+
+
   return (
     <>
       <ModalWrapper open={open} setOpen={setOpen}>
