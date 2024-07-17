@@ -1,4 +1,6 @@
-// a set of API endpoints for interacting with a user-related service, using the apiSlice utility from Redux Toolkit Query. The userApiSlice is extended to include these endpoints using the injectEndpoints method. Each endpoint corresponds to a specific API operation. Here's a breakdown of each endpoint and its purpose:
+// a set of API endpoints for interacting with a user-related service, using the apiSlice utility from Redux Toolkit Query. 
+//The userApiSlice is extended to include these endpoints using the injectEndpoints method.
+// Each endpoint corresponds to a specific API operation. Here's a breakdown of each endpoint and its purpose:
 const USER_URL = "/user";//Purpose: Update user profile information.
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -7,7 +9,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${USER_URL}/profile`,
                 method: "PUT",
                 body: data,
-                credentials: "include",
+                credentials: "include",//cookies
             }),
         }),
 
